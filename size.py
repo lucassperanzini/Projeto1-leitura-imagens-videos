@@ -2,7 +2,7 @@ import cv2
 
 print(cv2.__version__)
 
-IMG_PATH = r"D:\Documents\Nova pasta\PASTAS\FIAP\fiap\4 ano\Applied Compurter Vision\Projeto1\Images-gray\lena.jpg "
+IMG_PATH = r"Images-gray\lena.jpg "
 
 
 def main():

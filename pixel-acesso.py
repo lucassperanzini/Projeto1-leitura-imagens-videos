@@ -19,7 +19,7 @@ img_bin = np.zeros((altura,largura),dtype=np.uint8)
 # para cada pixel de altura e largura
 
 for i in range(altura):
-    for j in range(50):
+    for j in range(largura):
         if img_gray[i,j] >= L:
             img_bin[i,j] = 255
         else:
