@@ -1,30 +1,66 @@
 import cv2
 import numpy as np
 # define o caminho e a imagem onde o OpenCv vai encontr´a-la
-PATH = "Images-RGB/imco56.jpg"
+PATH = "ImagensTestes/figura08.png"
 # Le a imagem
-img = cv2.imread(PATH, cv2.IMREAD_GRAYSCALE)
-
-p_min = np.min(img)
-p_max = np.max(img)
-
-# 3. Aplica a fórmula de stretching
-# Subtraímos o mínimo, dividimos pela amplitude e multiplicamos por 255
-img_stretched = (img - p_min) / (p_max - p_min) * 255
-
-# 4. Converte de volta para inteiros de 8 bits
-img_stretched = img_stretched.astype(np.uint8)
 
 
-# define uma janela de visualiza¸c˜ao
-cv2.namedWindow("Imagem", cv2.WINDOW_NORMAL)
-cv2.namedWindow("Imagem_stretching", cv2.WINDOW_NORMAL)
-# exibe a imagem na janela definida
-cv2.imshow("Imagem", img)
-cv2.imshow("Imagem_stretching", img_stretched)
+
+def stretching_pixelwise_gray(img_gray: np.ndarray,
+                              r1: int, r2: int, s1: int, s2: int,
+                              L: int = 255) -> np.ndarray:
+    # (A) validações rápidas (evita divisão por zero)
+    if img_gray.ndim != 2:
+        raise ValueError("img_gray deve ser grayscale (2D).")
+    if not (0 < r1 < r2 < L):
+        raise ValueError("Precisa de 0 < r1 < r2 < L.")
+    if not (0 <= s1 <= L and 0 <= s2 <= L):
+        raise ValueError("s1 e s2 devem estar entre 0 e L.")
+
+    # (B) cria imagem de saída
+    out = np.zeros_like(img_gray, dtype=np.uint8)
+
+    # (C) pré-calcula multiplicador das 3 retas: g = a*r + b
+    a1 = s1 / r1
+    b1 = 0.0
+
+    a2 = (s2 - s1) / (r2 - r1)
+    b2 = s1 - a2 * r1
+
+    a3 = (L - s2) / (L - r2)
+    b3 = s2 - a3 * r2
+
+    # (D) varre a imagem inteira (pixel-a-pixel)
+    h, w = img_gray.shape
+    for x in range(h):
+        for y in range(w):
+            r = int(img_gray[x, y])
+
+            if r <= r1:
+                g = a1 * r + b1
+            elif r <= r2:
+                g = a2 * r + b2
+            else:
+                g = a3 * r + b3
+
+            # (E) garante faixa e salva
+            g = max(0, min(L, g))
+            out[x, y] = int(round(g))
+
+    return out
 
 
-# aguarda at´e uma tecla ser acionada
-cv2.waitKey(0)
-# encerra todas as janelas definidas at´e aqui
-cv2.destroyAllWindows()
+if __name__ == "__main__":
+    img = cv2.imread(PATH, cv2.IMREAD_GRAYSCALE)
+ 
+
+    # Exemplo de parâmetros (você ajusta)
+    r1, r2 = 50, 120
+    s1, s2 = 5, 240 
+
+    out = stretching_pixelwise_gray(img, r1, r2, s1, s2)
+
+    cv2.imshow("Original", img)
+    cv2.imshow("Stretching por Partes", out)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

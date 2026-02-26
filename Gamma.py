@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 # define o caminho e a imagem onde o OpenCv vai encontr´a-la
-PATH = "Images-RGB/imco193.jpg"
+PATH = "ImagensTestes/figura13.png"
 # Lˆe a imagem
 img = cv2.imread(PATH, cv2.IMREAD_GRAYSCALE)
 
@@ -9,7 +9,7 @@ img = cv2.imread(PATH, cv2.IMREAD_GRAYSCALE)
 img_normalizada = img.astype(np.float32) /255.0
 
 c = 1
-gamma = 2  # < 1 clareia, > 1 escurece
+gamma = 0.5  # < 1 clareia, > 1 escurece
 
 img_gamma = c * np.power(img_normalizada,gamma)
 img_final = np.clip(img_gamma * 255,0,255).astype(np.uint8)
