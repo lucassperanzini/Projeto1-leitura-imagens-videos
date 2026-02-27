@@ -55,7 +55,7 @@ if __name__ == "__main__":
  
 
     # Exemplo de parâmetros (você ajusta)
-    r1, r2 = 50, 120
+    r1, r2 = 100, 120
     s1, s2 = 5, 240 
 
     out = stretching_pixelwise_gray(img, r1, r2, s1, s2)
