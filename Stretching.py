@@ -5,11 +5,8 @@ PATH = "ImagensTestes/figura08.png"
 # Le a imagem
 
 
+def stretching_pixelwise_gray(img_gray: np.ndarray,r1: int, r2: int, s1: int, s2: int,L: int = 255) -> np.ndarray:
 
-def stretching_pixelwise_gray(img_gray: np.ndarray,
-                              r1: int, r2: int, s1: int, s2: int,
-                              L: int = 255) -> np.ndarray:
-    # (A) validações rápidas (evita divisão por zero)
     if img_gray.ndim != 2:
         raise ValueError("img_gray deve ser grayscale (2D).")
     if not (0 < r1 < r2 < L):
@@ -17,10 +14,10 @@ def stretching_pixelwise_gray(img_gray: np.ndarray,
     if not (0 <= s1 <= L and 0 <= s2 <= L):
         raise ValueError("s1 e s2 devem estar entre 0 e L.")
 
-    # (B) cria imagem de saída
+
     out = np.zeros_like(img_gray, dtype=np.uint8)
 
-    # (C) pré-calcula multiplicador das 3 retas: g = a*r + b
+  
     a1 = s1 / r1
     b1 = 0.0
 
@@ -30,7 +27,7 @@ def stretching_pixelwise_gray(img_gray: np.ndarray,
     a3 = (L - s2) / (L - r2)
     b3 = s2 - a3 * r2
 
-    # (D) varre a imagem inteira (pixel-a-pixel)
+  
     h, w = img_gray.shape
     for x in range(h):
         for y in range(w):
@@ -43,7 +40,7 @@ def stretching_pixelwise_gray(img_gray: np.ndarray,
             else:
                 g = a3 * r + b3
 
-            # (E) garante faixa e salva
+       
             g = max(0, min(L, g))
             out[x, y] = int(round(g))
 
@@ -52,9 +49,7 @@ def stretching_pixelwise_gray(img_gray: np.ndarray,
 
 if __name__ == "__main__":
     img = cv2.imread(PATH, cv2.IMREAD_GRAYSCALE)
- 
 
-    # Exemplo de parâmetros (você ajusta)
     r1, r2 = 100, 120
     s1, s2 = 5, 240 
 
