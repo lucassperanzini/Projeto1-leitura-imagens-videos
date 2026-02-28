@@ -8,7 +8,7 @@ if img is None:
     print("Erro: Não foi possível carregar a imagem. Verifique o caminho!")
 else:
     clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(50, 50))
-
+    
     # 3. Aplica o histograma local
     img_local = clahe.apply(img)
 
