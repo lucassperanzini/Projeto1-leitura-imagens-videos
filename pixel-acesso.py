@@ -10,10 +10,8 @@ L = 128
 altura,largura = img_gray.shape
 
 
-
 #matriz vazia com o tamanho da imagem
 img_bin = np.zeros((altura,largura),dtype=np.uint8)
-
 
 
 # para cada pixel de altura e largura
