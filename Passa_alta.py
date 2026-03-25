@@ -19,7 +19,6 @@ else:
     #Refinamento (Canny)
 
 
-
     #quanto o pixel central difere dos vizinhos
     # Laplaciano é sensivel a ruido entao usamos gaussian blur para tirar os ruidos
     gaussian_blur =  cv2.GaussianBlur(img, (3, 3), 0)
@@ -67,15 +66,13 @@ else:
 
     cv2.imshow("Sobel X", sobel_x)
     cv2.imshow("Sobel Y", sobel_y)
-
  
     cv2.imshow("Cany", canny)
 
 
-    
+  
     cv2.imshow("Original (Cinza)", img)
-    cv2.imshow("lap", lap_abs)
-
+    cv2.imshow("lap", g)
    
 
     cv2.waitKey(0) 
