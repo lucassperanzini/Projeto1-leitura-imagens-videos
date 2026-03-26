@@ -64,15 +64,13 @@ else:
     #bordas fracas
     cv2.imshow("Sobel X", sobel_x)
     cv2.imshow("Sobel Y", sobel_y)
-
  
     cv2.imshow("Cany", canny)
 
 
-    
+  
     cv2.imshow("Original (Cinza)", img)
-    cv2.imshow("lap", lap_abs)
-
+    cv2.imshow("lap", g)
    
 
     cv2.waitKey(0) 
