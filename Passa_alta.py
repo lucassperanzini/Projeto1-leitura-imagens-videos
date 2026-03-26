@@ -9,7 +9,6 @@ if img is None:
     print("Erro: Não foi possível carregar a imagem. Verifique o caminho!")
 else:
 
-
     #Imagem
     #↓
     #Suavização (Gaussian)
@@ -17,7 +16,6 @@ else:
     #Gradiente (Sobel)
     #↓
     #Refinamento (Canny)
-
 
 
     #quanto o pixel central difere dos vizinhos
@@ -46,7 +44,7 @@ else:
 
 
   #Força da borda = √(Gx² + Gy²)
-
+  
     #É um processo completo de detecção de borda
     
     #Imagem
@@ -64,7 +62,6 @@ else:
 
     #bordas fortes
     #bordas fracas
-
     cv2.imshow("Sobel X", sobel_x)
     cv2.imshow("Sobel Y", sobel_y)
 
